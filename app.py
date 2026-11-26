@@ -67,6 +67,15 @@ def aprendices_por_ficha(ficha, cantidad):
         datos.append(aprendiz)
     return jsonify(datos)
 
+@app.route('/api/aprendices/TerminadaUnificacion')
+def aprendices_terminada_unificacion():
+    resultado = coleccion.find({"PROGRAMA": "ANALISIS Y DESARROLLO DE SOFTWARE.", "ESTADO_FICHA": "Terminada por unificación"}, 
+                               {"_id": 0, "FICHA": 1, "NUMERO_DOCUMENTO": 1, "NOMBRE": 1, "PRIMER_APELLIDO": 1, "SEGUNDO_APELLIDO": 1})
+    datos = []
+    for aprendiz in resultado:
+        datos.append(aprendiz)
+    return jsonify(datos)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
