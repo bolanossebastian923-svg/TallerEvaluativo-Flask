@@ -6,10 +6,9 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+app.json.ensure_ascii = False
 
-# Conexión con MongoDB Atlas
 cliente = MongoClient(os.getenv("MONGO_URI"))
-
 db = cliente["CURSOS_CTPI_2026-SEBASTIAN"]
 
 coleccion = db["APRENDICES_BOLANOS"]
@@ -27,6 +26,27 @@ def cantidad_aprendices():
     return jsonify({
         "CantidadAprendices": cantidad
     })
+
+
+@app.route('/api/aprendicesPorNivel')
+def aprendices_por_nivel():
+    resultado = coleccion.aggregate([
+        {
+            "$group": {
+                "_id": "$NIVEL_DE_FORMACION",
+                "cantidad": {"$sum": 1}
+            }
+        }
+    ])
+    datos = []
+    for registro in resultado:
+        datos.append({
+            "nivel_formacion": registro["_id"],
+            "cantidad": registro["cantidad"]
+        })
+    return jsonify(datos)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
