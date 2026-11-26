@@ -76,6 +76,14 @@ def aprendices_terminada_unificacion():
         datos.append(aprendiz)
     return jsonify(datos)
 
+@app.route('/api/aprendices/PowerBI')
+def aprendices_power_bi():
+    resultado = coleccion.find({"PROGRAMA": "VISUALIZACION DE DATOS USANDO POWER BI"}, 
+                               {"_id": 0, "PROGRAMA": 1, "FICHA": 1, "NOMBRE": 1, "PRIMER_APELLIDO": 1, "SEGUNDO_APELLIDO": 1})
+    datos = []
+    for aprendiz in resultado:
+        datos.append(aprendiz)
+    return jsonify(datos)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
