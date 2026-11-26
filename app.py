@@ -20,3 +20,13 @@ def inicio():
     return jsonify({
         "mensaje": "API funcionando correctamente"
     })
+@app.route('/api/cantidadAprendices')
+def cantidad_aprendices():
+    cantidad = coleccion.count_documents({})
+
+    return jsonify({
+        "CantidadAprendices": cantidad
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
