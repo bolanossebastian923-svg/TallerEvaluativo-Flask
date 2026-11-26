@@ -90,5 +90,13 @@ def cantidad_aprendices_power_bi():
     resultado = coleccion.count_documents({"PROGRAMA": "VISUALIZACION DE DATOS USANDO POWER BI", "ESTADO_APRENDIZ": "Certificado"})
     return jsonify({"cantidad": resultado})
 
+@app.route('/api/aprendices/PorEstado')
+def aprendices_por_estado():
+    resultado = coleccion.find({"FICHA": 3312932}, {"_id": 0, "FICHA": 1, "NOMBRE": 1, "PRIMER_APELLIDO": 1, "SEGUNDO_APELLIDO": 1, "ESTADO_APRENDIZ": 1})
+    datos = []
+    for aprendiz in resultado:
+        datos.append(aprendiz)
+    return jsonify(datos)
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
