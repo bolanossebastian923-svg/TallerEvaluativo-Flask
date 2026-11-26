@@ -85,5 +85,10 @@ def aprendices_power_bi():
         datos.append(aprendiz)
     return jsonify(datos)
 
+@app.route('/api/cantidadAprendices/PowerBI')
+def cantidad_aprendices_power_bi():
+    resultado = coleccion.count_documents({"PROGRAMA": "VISUALIZACION DE DATOS USANDO POWER BI", "ESTADO_APRENDIZ": "Certificado"})
+    return jsonify({"cantidad": resultado})
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
