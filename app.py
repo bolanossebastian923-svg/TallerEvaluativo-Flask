@@ -57,15 +57,15 @@ def aprendices_adso():
 @app.route('/api/aprendicesPorFicha/<int:ficha>/<int:cantidad>')
 def aprendices_por_ficha(ficha, cantidad):
     resultado = coleccion.find(
-        {"FICHA": ficha, "ESTADO_APRENDIZ": "Por certificar"},
+        {"FICHA": ficha},
         {"_id": 0, "FICHA": 1, "PROGRAMA": 1, "NUMERO_DOCUMENTO": 1,
          "NOMBRE": 1, "PRIMER_APELLIDO": 1, "SEGUNDO_APELLIDO": 1}
     ).sort("PRIMER_APELLIDO", -1).limit(cantidad)
-
     datos = []
     for aprendiz in resultado:
         datos.append(aprendiz)
     return jsonify(datos)
+    
 
 @app.route('/api/aprendices/TerminadaUnificacion')
 def aprendices_terminada_unificacion():
