@@ -47,7 +47,7 @@ def aprendices_por_nivel():
     return jsonify(datos)
 
 
-@app.route('/api/programas/TEGNOLOGOS')
+@app.route('/api/programas/TEGNÓLOGOS')
 def programas_tecnologos():
 
     resultado = coleccion.distinct("PROGRAMA", {
@@ -56,6 +56,31 @@ def programas_tecnologos():
 
     return jsonify(resultado)
 
+
+@app.route('/api/aprendices/ADSO')
+def aprendices_adso():
+
+    resultado = coleccion.find(
+        {
+            "PROGRAMA": "ANALISIS Y DESARROLLO DE SOFTWARE.",
+            "ESTADO_APRENDIZ": "Certificado"
+        },
+        {
+            "_id": 0,
+            "FICHA": 1,
+            "NOMBRE": 1,
+            "PRIMER_APELLIDO": 1,
+            "SEGUNDO_APELLIDO": 1,
+            "ESTADO_APRENDIZ": 1
+        }
+    )
+
+    datos = []
+
+    for aprendiz in resultado:
+        datos.append(aprendiz)
+
+    return jsonify(datos)
 
 
 if __name__ == '__main__':
