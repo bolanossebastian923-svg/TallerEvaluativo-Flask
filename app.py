@@ -28,7 +28,7 @@ def cantidad_aprendices():
     })
 
 
-@app.route('/api/aprendicesPorNivel')
+@app.route('/api/aprendices/TECNICO')
 def aprendices_por_nivel():
     resultado = coleccion.aggregate([
         {
@@ -45,6 +45,16 @@ def aprendices_por_nivel():
             "cantidad": registro["cantidad"]
         })
     return jsonify(datos)
+
+
+@app.route('/api/programas/TEGNOLOGOS')
+def programas_tecnologos():
+
+    resultado = coleccion.distinct("PROGRAMA", {
+        "NIVEL_DE_FORMACION": "TECNÓLOGO"
+    })
+
+    return jsonify(resultado)
 
 
 
