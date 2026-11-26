@@ -98,5 +98,10 @@ def aprendices_por_estado():
         datos.append(aprendiz)
     return jsonify(datos)
 
+@app.route('/api/programas/ComplementariaVirtual')
+def programas_complementaria_virtual():
+    resultado = coleccion.distinct("PROGRAMA", {"NIVEL_DE_FORMACION": "COMPLEMENTARIA VIRTUAL"})
+    return jsonify(resultado)
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
